@@ -1,0 +1,33 @@
+body {
+    font-family: "微软雅黑"
+}
+.right{
+    float: right;
+}
+
+.nav {
+    background-color: #000000;
+    color: #ffffff;
+    font-family: "宋体";
+    height: 56px;
+}
+
+.nav ul{
+    list-style: none;
+}
+
+.nav .logo{
+    font-size: 36px;
+}
+
+.nav .login{
+    
+}
+
+.nav ul li{
+    float: left;
+    line-height: 40px;
+    font-size: 24px;
+    padding-top: 6px;
+    margin-left: 30px;
+}
