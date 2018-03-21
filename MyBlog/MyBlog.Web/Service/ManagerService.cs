@@ -16,5 +16,17 @@ namespace MyBlog.Web.Service
             var query = _context.artice_type.ToList();
             return query;
         }
+
+        /// <summary>
+        /// 登陆
+        /// </summary>
+        /// <param name="login_name">登陆名称</param>
+        /// <param name="pass_word">登陆密码</param>
+        /// <returns></returns>
+        public admin Login(string login_name, string pass_word)
+        {
+            var query = _context.admin.Where(a => a.login_name == login_name).Where(a => a.pass_word == pass_word).FirstOrDefault();
+            return query;
+        }
     }
 }

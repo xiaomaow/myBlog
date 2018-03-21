@@ -14,6 +14,8 @@ namespace MyBlog.Web.Models
 
         public virtual DbSet<artice_type> artice_type { get; set; }
 
+        public virtual DbSet<admin> admin { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<artice_type>()
