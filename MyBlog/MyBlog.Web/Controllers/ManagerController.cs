@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using MyBlog.Web.Service;
 using MyBlog.Web.Models;
+using MyBlog.Web.common;
 
 namespace MyBlog.Web.Controllers
 {
@@ -27,14 +28,22 @@ namespace MyBlog.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult Login(string login_name,string pass_word)
+        public JsonResult Login(string login_name, string pass_word)
         {
+            if (login_name == null)
+            {
+                return new JsonNetResult(new ApiResult(400, "登陆名称不能为空", null));
+            }
+            if (pass_word == null)
+            {
+                return new JsonNetResult(new ApiResult(400, "登录密码不能为空", null));
+            }            
             admin _admin = _service.Login(login_name, pass_word);
             if (_admin != null)
             {
-                return Json(200);
+                return new JsonNetResult(new ApiResult(200, "", _admin));
             }
-            return Json(400);
+            return new JsonNetResult(new ApiResult(400, "登陆失败，账号或密码错误！", null));
         }
 
         public ActionResult typelist()

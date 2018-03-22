@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Data.Entity;
 using MyBlog.Web.Models;
+using MyBlog.Web.common;
 
 namespace MyBlog.Web.Service
 {
@@ -25,7 +26,8 @@ namespace MyBlog.Web.Service
         /// <returns></returns>
         public admin Login(string login_name, string pass_word)
         {
-            var query = _context.admin.Where(a => a.login_name == login_name).Where(a => a.pass_word == pass_word).FirstOrDefault();
+            var pw = SecurityHelper.ComputeMD5_16bit(pass_word);
+            var query = _context.admin.Where(a => a.login_name == login_name).Where(a => a.pass_word.ToLower() == pass_word.ToLower()).FirstOrDefault();
             return query;
         }
     }

@@ -130,17 +130,16 @@
 
             if ($flag == true) {
                 $.post("login", { login_name: $login_name, pass_word: $pass_word }, function (data) {
-                    if (data == "200") {
+                    if (data.code == 200) {
                         alert("登录成功");
                     }
                     else {
-                        alert("登录失败");
+                        alert(data.message);
                     }
-                },"json")
+                }, "json")
             }
         });
     </script>
 </body>
 </html>
-
 
