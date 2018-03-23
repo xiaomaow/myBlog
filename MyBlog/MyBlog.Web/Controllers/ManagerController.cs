@@ -41,6 +41,8 @@ namespace MyBlog.Web.Controllers
             admin _admin = _service.Login(login_name, pass_word);
             if (_admin != null)
             {
+                //写入cookie
+
                 return new JsonNetResult(new ApiResult(200, "", _admin));
             }
             return new JsonNetResult(new ApiResult(400, "登陆失败，账号或密码错误！", null));
