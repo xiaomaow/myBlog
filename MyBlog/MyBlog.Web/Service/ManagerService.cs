@@ -27,8 +27,17 @@ namespace MyBlog.Web.Service
         public admin Login(string login_name, string pass_word)
         {
             var pw = SecurityHelper.ComputeMD5_16bit(pass_word);
-            var query = _context.admin.Where(a => a.login_name == login_name).Where(a => a.pass_word.ToLower() == pass_word.ToLower()).FirstOrDefault();
+            var query = _context.admin.Where(a => a.login_name == login_name).Where(a => a.pass_word.ToLower() == pw.ToLower()).FirstOrDefault();
             return query;
+        }
+
+        public int Update_PassWord(int user_id, string pass_word)
+        {
+            var pw = SecurityHelper.ComputeMD5_16bit(pass_word);
+            var query = _context.admin.FirstOrDefault(a => a.id == user_id);
+            query.pass_word = pw;
+            int result = _context.SaveChanges();
+            return result;
         }
     }
 }

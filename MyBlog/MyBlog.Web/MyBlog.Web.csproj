@@ -150,9 +150,11 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="common\CookieHelper.cs" />
     <Compile Include="common\JsonNetResult.cs" />
     <Compile Include="common\ApiResult.cs" />
     <Compile Include="common\SecurityHelper.cs" />
+    <Compile Include="common\SysConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManagerController.cs" />
     <Compile Include="Global.asax.cs">
