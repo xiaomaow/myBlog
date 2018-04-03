@@ -19,5 +19,11 @@ namespace MyBlog.Web.common
             }
             HttpContext.Current.Response.Cookies.Add(cookie);
         }
+
+        public static HttpCookie GetCookie(string key)
+        {
+            HttpCookie _cookie = HttpContext.Current.Request.Cookies[key];
+            return _cookie;
+        }
     }
 }
