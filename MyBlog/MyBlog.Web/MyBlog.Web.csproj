@@ -385,6 +385,12 @@
     <Content Include="Views\Manager\Index.cshtml" />
     <Content Include="Views\Manager\typelist.cshtml" />
     <Content Include="Views\Manager\Login.cshtml" />
+    <Content Include="Views\Shared\_head.cshtml" />
+    <Content Include="Views\Shared\_script.cshtml" />
+    <Content Include="Views\Shared\_navbar.cshtml" />
+    <Content Include="Views\Shared\_sidebar.cshtml" />
+    <Content Include="Views\Shared\_breadcrumbs.cshtml" />
+    <Content Include="Views\Shared\_footer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

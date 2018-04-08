@@ -28,5 +28,20 @@ namespace MyBlog.Web.Models
         /// 创建时间
         /// </summary>
         public DateTime create_time { get; set; }
+
+        /// <summary>
+        /// 真实姓名
+        /// </summary>
+        public string real_name { get; set; }
+
+        /// <summary>
+        /// 联系电话
+        /// </summary>
+        public string phone { get; set; }
+
+        /// <summary>
+        /// 头像
+        /// </summary>
+        public string head_img { get; set; }
     }
 }

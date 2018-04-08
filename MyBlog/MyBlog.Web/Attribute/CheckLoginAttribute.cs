@@ -21,11 +21,13 @@ namespace MyBlog.Web.Attribute
             if (_cookie == null || string.IsNullOrEmpty(_cookie.Value))
             {
                 filterContext.Result = loginPage;
+                return;
             }
             string[] v = SecurityHelper.DecryptDES(_cookie.Value, SysConfig.key).Split('|');
             if (v.Length != 2)
             {
                 filterContext.Result = loginPage;
+                return;
             }
             int login_id = Convert.ToInt32(v[0]);
             admin _admin = _service._context.admin.AsNoTracking().Where(a => a.id == login_id).FirstOrDefault();
@@ -36,6 +38,7 @@ namespace MyBlog.Web.Attribute
             if (_admin.pass_word != v[1])
             {
                 filterContext.Result = loginPage;
+                return;
             }
             filterContext.Controller.ViewBag.Admin = _admin;
         }
