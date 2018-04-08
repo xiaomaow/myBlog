@@ -22,6 +22,7 @@ namespace MyBlog.Web.Controllers
             return View();
         }
 
+        #region 登录
         /// <summary>
         /// 登陆页面
         /// </summary>
@@ -55,12 +56,60 @@ namespace MyBlog.Web.Controllers
             }
             return new JsonNetResult(new ApiResult(400, "登陆失败，账号或密码错误！", null));
         }
+        #endregion
 
+        #region 文章分类
+        [CheckLogin]
         public ActionResult typelist()
         {
             var query = _service.GetTypeList();
             ViewBag.list = query;
             return View(ViewBag);
         }
+        #endregion
+
+        #region 管理员管理
+        [CheckLogin]
+        public ActionResult AdminList(int page = 0, string key = "")
+        {
+            PageInfo _page_info = new PageInfo(page, 20);
+            List<admin> _admin_list = _service.admin_list(_page_info, key);
+            ViewBag.List = _admin_list;
+            return View();
+        }
+
+        [CheckLogin]
+        public ActionResult Admin_Del(int id)
+        {
+            _service.admin_del(id);
+            return Redirect("adminlist");
+        }
+
+        [CheckLogin]
+        public ActionResult profile(int id = 0)
+        {
+            var _admin = _service.admin_info(id);
+            ViewBag.EditAdmin = _admin;
+            return View(ViewBag);
+        }
+
+        /// <summary>
+        /// 编辑管理员信息
+        /// </summary>
+        /// <param name="id">管理员id</param>
+        /// <param name="login_name">登录名称</param>
+        /// <param name="real_name">真实姓名</param>
+        /// <param name="phone">联系号码</param>
+        /// <param name="pass_word">密码</param>
+        /// <param name="head_img">头像</param>
+        /// <param name="is_supper">是否超级管理员</param>
+        /// <returns></returns>
+        [CheckLogin]
+        public ActionResult Admin_Edit(int id, string login_name, string real_name, string phone, string pass_word, string head_img, int is_super)
+        {
+            _service.admin_edit(id, login_name, real_name, phone, pass_word, head_img, is_super);
+            return Redirect("AdminList");
+        }
+        #endregion
     }
 }

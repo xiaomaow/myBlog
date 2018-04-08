@@ -1,11 +1,9 @@
 ﻿@using MyBlog.Web.Models;
-@{
-    admin _admin = ViewBag.Admin;
-}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     @Html.Partial("_head")
+    @RenderSection("style", false)
 </head>
 
 <body class="no-skin">
@@ -32,5 +30,6 @@
         </a>
     </div><!-- /.main-container -->
     @Html.Partial("_script")
+    @RenderSection("scripts", false)
 </body>
 </html>

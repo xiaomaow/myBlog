@@ -1,0 +1,47 @@
+﻿@using MyBlog.Web.Models
+@{
+    List<admin> _admin_list = ViewBag.List;
+    Layout = "~/views/shared/_layout.cshtml";
+    ViewBag.Title = "管理员列表";
+    ViewBag.PageName = "admin";
+}
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <td>编号</td>
+            <td>真实姓名</td>
+            <td>手机</td>
+            <td>创建时间</td>
+            <td>操作</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (admin _admin in _admin_list)
+        {
+            <tr>
+                <td>@(_admin.id)</td>
+                <td>@(_admin.real_name)</td>
+                <td>@(_admin.phone)</td>
+                <td>@(_admin.create_time)</td>
+                <td>
+                    <a href="profile?id=@(_admin.id)" class="btn btn-minier btn-success">详细</a>
+                    @if (_admin.is_super == false)
+                    {
+                        <a href="javascript:;" class="btn btn-minier btn-danger delete_user" data-id="@(_admin.id)">删除</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@section scripts{
+    <script type="text/javascript">
+        $(".delete_user").click(function () {
+            if (confirm("你确定要删除这个用户吗？")) {
+                var $id = $(this).attr("data-id");
+                location.href = "admin_del?id=" + $id;
+            }
+        });
+    </script>
+}

@@ -164,6 +164,7 @@
     <Compile Include="Models\admin.cs" />
     <Compile Include="Models\artice_type.cs" />
     <Compile Include="Models\MyBlogContext.cs" />
+    <Compile Include="Models\PageInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\ManagerService.cs" />
   </ItemGroup>
@@ -391,6 +392,8 @@
     <Content Include="Views\Shared\_sidebar.cshtml" />
     <Content Include="Views\Shared\_breadcrumbs.cshtml" />
     <Content Include="Views\Shared\_footer.cshtml" />
+    <Content Include="Views\Manager\AdminList.cshtml" />
+    <Content Include="Views\Manager\profile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

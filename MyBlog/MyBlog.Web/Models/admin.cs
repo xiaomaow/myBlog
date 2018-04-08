@@ -43,5 +43,7 @@ namespace MyBlog.Web.Models
         /// 头像
         /// </summary>
         public string head_img { get; set; }
+
+        public bool is_super { get; set; }
     }
 }

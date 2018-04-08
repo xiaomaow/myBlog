@@ -1,0 +1,112 @@
+﻿@using MyBlog.Web.Models;
+@{
+    Layout = "~/views/shared/_layout.cshtml";
+    ViewBag.Title = "管理员信息";
+    ViewBag.PageName = "admin";
+    admin _admin = ViewBag.EditAdmin;
+}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        管理员信息
+    </div>
+    <div class="panel-body">
+        <form id="admin_edit_form" name="admin_edit_form" class="form-horizontal" role="form" method="post" action="admin_edit?id=@(_admin.id)">
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="login_name">
+                    登录名：
+                </label>
+                <div class="col-sm-9">
+                    <input type="text" value="@(_admin.login_name)" id="login_name" placeholder="请输入用户的登录名" name="login_name" class="col-xs-10 col-sm-5" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="real_name">
+                    真实姓名：
+                </label>
+                <div class="col-sm-9">
+                    <input type="text" value="@(_admin.real_name)" id="real_name" placeholder="请输入用户的真实姓名" name="real_name" class="col-xs-10 col-sm-5" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="phone">
+                    手机号码：
+                </label>
+                <div class="col-sm-9">
+                    <input type="text" value="@(_admin.phone)" id="phone" placeholder="请输入用户手机号码" name="phone" class="col-xs-10 col-sm-5" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="password">
+                    密码：
+                </label>
+                <div class="col-sm-9">
+                    <input type="password" value="@(_admin.pass_word)" id="password" placeholder="请输入用户的登录密码" name="password" class="col-xs-10 col-sm-5" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="head_img">
+                    头像：
+                </label>
+                <div class="col-sm-9">
+                    <input type="hidden" name="head_img" value="@(_admin.head_img)" />
+                    <img src="@(_admin.head_img)" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="head_img">
+                    超级管理员：
+                </label>
+                <div class="col-sm-9">
+                    <input type="radio" name="is_super" value="0" @(_admin.is_super == false ? "checked" : "") />否
+                    <input type="radio" name="is_super" value="1" @(_admin.is_super == true ? "checked" : "") />是
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="head_img">
+                </label>
+                <div class="col-sm-9">
+                    <a class="btn btn-success" href="javascript:;" id="admin_edit_btn">保存</a>
+                    <a class="btn btn-danger" href="javascript:;">刷新</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+@section scripts{
+    <script type="text/javascript">
+        $("#admin_edit_btn").click(function () {
+            var $real_name = $("input[name='real_name']").val();
+            var $login_name = $("input[name='login_name']").val();
+            var $phone = $("input[name='phone']").val();
+            var $pass_word = $("input[name='pass_word']").val();
+            var $flag = true;
+
+            if ($flag == true && $real_name == "") {
+                $flag = false;
+                alert("真实姓名不能为空！");
+            }
+            if ($flag == true && $login_name == "") {
+                $flag = false;
+                alert("登录名称不能为空！");
+            }
+            if ($flag == true && $phone == "") {
+                $flag = false;
+                alert("手机号码不能为空！");
+            }
+            if ($flag == true && $pass_word == "") {
+                $flag = false;
+                alert("密码不能为空！");
+            }
+            if ($flag == true) {
+                $("#admin_edit_form").submit();
+            }
+        });
+    </script>
+}
