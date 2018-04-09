@@ -105,10 +105,11 @@ namespace MyBlog.Web.Controllers
         /// <param name="is_supper">是否超级管理员</param>
         /// <returns></returns>
         [CheckLogin]
-        public ActionResult Admin_Edit(int id, string login_name, string real_name, string phone, string pass_word, string head_img, int is_super)
+        [HttpPost]
+        public JsonResult Admin_Edit(int id, string login_name, string real_name, string phone, string password, string head_img, int is_super)
         {
-            _service.admin_edit(id, login_name, real_name, phone, pass_word, head_img, is_super);
-            return Redirect("AdminList");
+            _service.admin_edit(id, login_name, real_name, phone, password, head_img, is_super);
+            return Json("200");
         }
         #endregion
     }

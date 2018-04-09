@@ -44,7 +44,7 @@
                     密码：
                 </label>
                 <div class="col-sm-9">
-                    <input type="password" value="@(_admin.pass_word)" id="password" placeholder="请输入用户的登录密码" name="password" class="col-xs-10 col-sm-5" />
+                    <input type="password" id="password" placeholder="请输入用户的登录密码" name="password" class="col-xs-10 col-sm-5" />
                 </div>
             </div>
 
@@ -80,12 +80,16 @@
     </div>
 </div>
 @section scripts{
+    <script src="https://unpkg.com/qiniu-js@2.2.1/dist/qiniu.min.js"></script>
     <script type="text/javascript">
         $("#admin_edit_btn").click(function () {
+            var $id=@(_admin.id);
             var $real_name = $("input[name='real_name']").val();
             var $login_name = $("input[name='login_name']").val();
             var $phone = $("input[name='phone']").val();
-            var $pass_word = $("input[name='pass_word']").val();
+            var $pass_word = $("input[name='password']").val();
+            var $head_img=$("input[name='head_img']").val();
+            var $is_super=$('input[name="is_super"]:checked').val()
             var $flag = true;
 
             if ($flag == true && $real_name == "") {
@@ -100,13 +104,39 @@
                 $flag = false;
                 alert("手机号码不能为空！");
             }
-            if ($flag == true && $pass_word == "") {
-                $flag = false;
-                alert("密码不能为空！");
-            }
             if ($flag == true) {
-                $("#admin_edit_form").submit();
+                $.post("admin_edit",
+                    {
+                        real_name: $real_name,
+                        login_name: $login_name,
+                        phone: $phone,
+                        password: $pass_word,
+                        head_img: $head_img,
+                        is_super: $is_super,
+                        id:$id
+                    },function(data){
+                        alert("保存管理员信息成功");
+                        location.reload();
+                    },'json')
             }
         });
+    </script>
+    <script type="text/javascript">
+        var key="test.jpg";
+        var token='';
+        var putExtra={
+            fname:"",
+            params:{},
+            mimeType:[]||null
+        };
+        var config={
+            useCdnDomain:false,
+            region:null
+        };
+        $.post("~/api/qntoken",function(data){
+            token=data;
+            var observable = qiniu.upload(file, key, token, putExtra, config)
+        });
+
     </script>
 }

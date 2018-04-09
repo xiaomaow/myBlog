@@ -94,7 +94,10 @@ namespace MyBlog.Web.Service
             query.login_name = login_name;
             query.real_name = real_name;
             query.phone = phone;
-            query.pass_word = pass_word;
+            if (!string.IsNullOrEmpty(pass_word))
+            {
+                query.pass_word = SecurityHelper.ComputeMD5_16bit(pass_word);
+            }
             query.head_img = head_img;
             this._context.SaveChanges();
         }
