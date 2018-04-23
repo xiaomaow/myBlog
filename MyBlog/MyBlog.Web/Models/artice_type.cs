@@ -23,5 +23,11 @@ namespace MyBlog.Web.Models
 
         [StringLength(200)]
         public string seo_description { get; set; }
+
+        /// <summary>
+        /// ÎÄÕÂ×ÜÊı
+        /// </summary>
+        [NotMapped]
+        public int artice_count { get; set; }
     }
 }

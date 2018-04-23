@@ -1,52 +1,55 @@
-﻿
-@using MyBlog.Web.Models;
+﻿@using MyBlog.Web.Models;
 @using MyBlog.Web.Service;
 @{
-    Layout = null;
-    ViewBag.Title = "typelist";
+    Layout = "~/views/shared/_layout.cshtml";
+    ViewBag.Title = "文章类型列表";
     List<artice_type> _list = ViewBag.list;
+    ViewBag.PageName = "artice_type";
 }
-
-<!doctype html>
-<html lang="en">
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
-    <title>Hello, world!</title>
-</head>
-<body>
-
-    <table class="table table-bordered">
-        <thead>
-            <tr class="">
-                <td>类型名称</td>
-                <td>seo标题</td>
-                <td>seo关键词</td>
-                <td>seo描述</td>
+<table class="table table-bordered table-hover" style="text-align:center">
+    <thead>
+        <tr>
+            <td class="col-md-1">类型名称</td>
+            <td class="col-md-1">文章总数</td>
+            <td class="col-md-1">操作</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (artice_type _type in _list)
+        {
+            <tr>
+                <td class="col-md-1">@(_type.typename)</td>
+                <td class="col-md-1">@(_type.artice_count)</td>
+                <td>
+                    <a href="typeedit?id=@(_type.id)" class="btn btn-minier btn-success">编辑</a>
+                    <a href="javascript:;" class="btn btn-minier btn-danger delete_artice_type" data-id="@(_type.id)">删除</a>
+                </td>
             </tr>
-        </thead>
-        <tbody>
-            @foreach (artice_type _type in _list)
-            {
-                <tr class="">
-                    <td>@(_type.typename)</td>
-                    <td>@(_type.seo_title)</td>
-                    <td>@(_type.seo_key)</td>
-                    <td>@(_type.seo_description)</td>
-                </tr>
-            }
-        </tbody>
-    </table>
+        }
+    </tbody>
+</table>
+<div class="wwj_foot">
+    <a href="typeadd" class="btn btn-primary">添加文章类型</a>
+</div>
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-</body>
-</html>
+@section scripts{
+    <script type="text/javascript">
+        $(".delete_artice_type").click(function () {
+            if (confirm("你确定要删除这条文章分类记录吗？"))
+            {
+                var $id = $(this).attr("data-id");
+
+                $.post("typedel", { id: $id }, function (data) {
+                    if (data.code == 400) {
+                        alert(data.message);
+                    }
+                    else {
+                        alert("删除文章分类成功！");
+                        location.reload();
+                    }
+                });
+
+            }
+        });
+    </script>
+}

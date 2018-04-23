@@ -12,8 +12,8 @@ namespace MyBlog.Web.Controllers
         // GET: Api
         public JsonResult QnToken()
         {
-            string token = qiniu.Init();            
-            return token;
+            string token = qiniu.Init();
+            return Json(token);
         }
     }
 }
