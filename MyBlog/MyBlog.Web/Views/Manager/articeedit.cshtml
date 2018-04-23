@@ -75,7 +75,7 @@
                     内容
                 </label>
                 <div class="col-sm-9">
-                    <textarea id="container" placeholder=""></textarea>
+                    <textarea id="container" placeholder="">@(_artice.content)</textarea>
                 </div>
 
             </div>
@@ -95,7 +95,7 @@
     <script type="text/javascript">
         var ue = UE.getEditor('container');
         ue.ready(function () {
-            ue.setContent("@(_artice.content)");
+            
         });
     </script>
     <script type="text/javascript">

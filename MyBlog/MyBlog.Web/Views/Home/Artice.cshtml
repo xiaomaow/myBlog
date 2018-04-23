@@ -1,9 +1,11 @@
-﻿@using MyBlog.Web.Models
+﻿@using MyBlog.Web.Models;
 @{
     Layout = null;
-    List<artice> _artice_list = ViewBag.ArticeList;
+    ViewBag.Title = "Artice";
+    artice _artice = ViewBag.Item;
     List<artice_type> _artice_type_list = ViewBag.ArticeTypeLit;
 }
+
 
 <!DOCTYPE html>
 <html lang="zh-CN">
@@ -12,21 +14,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <meta name="description" content="">
+    <meta name="description" content="@(_artice.seo_description)">
+    <meta name="keywords" content="@(_artice.seo_key)">
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>程序技术分享家</title>
+    <title>@(_artice.seo_title)|程序技术分享家</title>
 
     <!-- Bootstrap core CSS -->
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap theme -->
-    <link href="../../dist/css/bootstrap-theme.min.css" rel="stylesheet">
+
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="theme.css" rel="stylesheet">
+    <link href="blog.css" rel="stylesheet">
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -75,26 +77,25 @@
         </div>
     </nav>
 
+    <div class="container" style="padding-top:80px;">
 
-    <div class="container theme-showcase" role="main" style="padding-top:80px;">
-        <div class="col-sm-8">
-            @foreach (artice _artice in _artice_list)
-            {
-                <div class="row">
-                    <div class="col-sm-8">
-                        <h3><a href="~/home/artice?id=@(_artice.id)">@(_artice.title)</a></h3>
-                        <div class="row">
-                            <div class="col-xs-8 col-sm-6">
-                                文章分类:@(_artice.type.typename)
-                            </div>
-                            <div class="col-xs-4 col-sm-6">
-                                创建时间：@(_artice.create_time.ToString("yyyy-MM-dd HH:mm:ss"))
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            }
-        </div>
+        <div class="col-sm-8 row">
+            <div class="blog-header">
+                <h1 class="blog-title">@(_artice.title)</h1>
+                <p class="lead blog-description" style="color:#808080;font-size:16px;">文章类型:@(_artice.type.typename)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;创建时间:@(_artice.create_time.ToString("yyyy-MM-dd HH:mm:ss"))</p>
+            </div>
+            <div class=" blog-main">
+                @Html.Raw(_artice.content)
+
+                @*<nav>
+                    <ul class="pager">
+                        <li><a href="#">Previous</a></li>
+                        <li><a href="#">Next</a></li>
+                    </ul>
+                </nav>*@
+
+            </div><!-- /.blog-main -->
+        </div><!-- /.row -->
         <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
             @*<div class="sidebar-module sidebar-module-inset">
                 <h4>About</h4>
@@ -118,12 +119,23 @@
                 </ol>
             </div>*@
         </div><!-- /.blog-sidebar -->
-    </div>
+    </div><!-- /.container -->
+    @*<footer class="blog-footer">
+            <p>Blog template built for <a href="http://getbootstrap.com">Bootstrap</a> by <a href="https://twitter.com/mdo">@mdo</a>.</p>
+            <p>
+                <a href="#">Back to top</a>
+            </p>
+        </footer>*@
+
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
 </body>
 </html>
+
