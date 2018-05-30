@@ -13,34 +13,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
     <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
-
+    <meta name="author" content="">    
     <title>程序技术分享家</title>
-
     <!-- Bootstrap core CSS -->
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap theme -->
-    <link href="../../dist/css/bootstrap-theme.min.css" rel="stylesheet">
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="theme.css" rel="stylesheet">
-
-    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
 </head>
 
 <body>
-
     <!-- Fixed navbar -->
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
@@ -85,7 +64,7 @@
                         <h3><a href="~/home/artice?id=@(_artice.id)">@(_artice.title)</a></h3>
                         <div class="row">
                             <div class="col-xs-8 col-sm-6">
-                                文章分类:@(_artice.type.typename)
+                                文章分类:@(_artice.type.type_name)
                             </div>
                             <div class="col-xs-4 col-sm-6">
                                 创建时间：@(_artice.create_time.ToString("yyyy-MM-dd HH:mm:ss"))
@@ -105,19 +84,15 @@
                 <ol class="list-unstyled">
                     @foreach (artice_type _type in _artice_type_list)
                     {
-                        <li><a href="~/home/index?page=0&typeid=@(_type.id)">@(_type.typename)</a></li>
+                        <li><a href="~/home/index?page=0&typeid=@(_type.id)">@(_type.type_name)</a></li>
                     }
                 </ol>
             </div>
-            @*<div class="sidebar-module">
-                <h4>Elsewhere</h4>
-                <ol class="list-unstyled">
-                    <li><a href="#">GitHub</a></li>
-                    <li><a href="#">Twitter</a></li>
-                    <li><a href="#">Facebook</a></li>
-                </ol>
-            </div>*@
+            <div class="col-sm-11">
+                备案号:鄂ICP备18007882号-1
+            </div>
         </div><!-- /.blog-sidebar -->
+
     </div>
 
     <!-- Bootstrap core JavaScript

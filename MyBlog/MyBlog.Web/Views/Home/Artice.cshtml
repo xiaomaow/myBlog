@@ -82,7 +82,7 @@
         <div class="col-sm-8 row">
             <div class="blog-header">
                 <h1 class="blog-title">@(_artice.title)</h1>
-                <p class="lead blog-description" style="color:#808080;font-size:16px;">文章类型:@(_artice.type.typename)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;创建时间:@(_artice.create_time.ToString("yyyy-MM-dd HH:mm:ss"))</p>
+                <p class="lead blog-description" style="color:#808080;font-size:16px;">文章类型:@(_artice.type.type_name)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;创建时间:@(_artice.create_time.ToString("yyyy-MM-dd HH:mm:ss"))</p>
             </div>
             <div class=" blog-main">
                 @Html.Raw(_artice.content)
@@ -106,9 +106,12 @@
                 <ol class="list-unstyled">
                     @foreach (artice_type _type in _artice_type_list)
                     {
-                        <li><a href="~/home/index?page=0&typeid=@(_type.id)">@(_type.typename)</a></li>
+                        <li><a href="~/home/index?page=0&typeid=@(_type.id)">@(_type.type_name)</a></li>
                     }
                 </ol>
+            </div>
+            <div class="col-sm-11">
+                备案号:鄂ICP备18007882号-1
             </div>
             @*<div class="sidebar-module">
                 <h4>Elsewhere</h4>

@@ -13,13 +13,13 @@ namespace MyBlog.Web.Controllers
         HomeService _service = new HomeService();
         public ActionResult Index(int typeid=0,int page=0)
         {
-            PageInfo _info = new PageInfo();
-            _info.page = page;
-            _info.page_size = 20;
-            List<artice> _artice_list = _service.GetArticeList(_info, typeid);
-            ViewBag.ArticeList = _artice_list;
-            List<artice_type> _artice_type_list = _service.GetArticeTypeList();
-            ViewBag.ArticeTypeLit = _artice_type_list;
+            //PageInfo _info = new PageInfo();
+            //_info.page = page;
+            //_info.page_size = 20;
+            //List<artice> _artice_list = _service.GetArticeList(_info, typeid);
+            //ViewBag.ArticeList = _artice_list;
+            //List<artice_type> _artice_type_list = _service.GetArticeTypeList();
+            //ViewBag.ArticeTypeLit = _artice_type_list;
             return View(ViewBag);
         }
 
@@ -30,10 +30,10 @@ namespace MyBlog.Web.Controllers
         /// <returns></returns>
         public ActionResult artice(int id)
         {
-            artice _artice = _service.GetArtice(id);
-            ViewBag.Item = _artice;
-            List<artice_type> _artice_type_list = _service.GetArticeTypeList();
-            ViewBag.ArticeTypeLit = _artice_type_list;
+            //artice _artice = _service.GetArtice(id);
+            //ViewBag.Item = _artice;
+            //List<artice_type> _artice_type_list = _service.GetArticeTypeList();
+            //ViewBag.ArticeTypeLit = _artice_type_list;
             return View(ViewBag);
         }
     }

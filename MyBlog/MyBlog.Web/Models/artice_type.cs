@@ -11,7 +11,7 @@ namespace MyBlog.Web.Models
         public int id { get; set; }
 
         [StringLength(50)]
-        public string typename { get; set; }
+        public string type_name { get; set; }
 
         public int? sort { get; set; }
 
