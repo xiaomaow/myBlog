@@ -30,10 +30,10 @@ namespace MyBlog.Web.Controllers
         /// <returns></returns>
         public ActionResult artice(int id)
         {
-            //artice _artice = _service.GetArtice(id);
-            //ViewBag.Item = _artice;
-            //List<artice_type> _artice_type_list = _service.GetArticeTypeList();
-            //ViewBag.ArticeTypeLit = _artice_type_list;
+            artice _artice = _service.GetArtice(id);
+            ViewBag.Item = _artice;
+            List<artice_type> _artice_type_list = _service.GetArticeTypeList();
+            ViewBag.ArticeTypeLit = _artice_type_list;
             return View(ViewBag);
         }
     }
