@@ -9,6 +9,7 @@ using System.Data.Entity;
 using MyBlog.Web.Models;
 using MyBlog.Web.common;
 using Dapper;
+using System.Text;
 
 namespace MyBlog.Web.Service
 {
@@ -84,25 +85,30 @@ namespace MyBlog.Web.Service
                 _type.seo_description = seo_description;
                 _type.seo_key = seo_key;
                 _type.sort = 0;
-                string sql="insert into article_type (type_name,seo)"
+                string sql = "insert into article_type (type_name,seo_title,seo_description,seo_key,sort) values (@type_name,@seo_title,@seo_description,@seo_key,@sort)";
+                connection.Execute(sql, _type);
             }
         }
 
-        ///// <summary>
-        ///// 删除文章类型
-        ///// </summary>
-        ///// <param name="id">文章类型Id</param>
-        ///// <returns>-1 类型中包含文章，不能删除</returns>
-        //public int TypeDel(int id)
-        //{
-        //    var query = GetArticeType(id);
-        //    if (query.artice_count > 0)
-        //    {
-        //        return -1;
-        //    }
-        //    this._context.artice_type.Remove(query);
-        //    return this._context.SaveChanges();
-        //}
+        /// <summary>
+        /// 删除文章类型
+        /// </summary>
+        /// <param name="id">文章类型Id</param>
+        /// <returns>-1 类型中包含文章，不能删除</returns>
+        public int TypeDel(int id)
+        {
+            var query = GetArticeType(id);
+            if (query.artice_count > 0)
+            {
+                return -1;
+            }
+            using (IDbConnection connection = MySqlConnection())
+            {
+                string sql = string.Format("delete from article_type where id={0}", id);
+                return connection.Execute(sql);
+            }
+
+        }
         #endregion
 
         #region 登录
@@ -137,23 +143,28 @@ namespace MyBlog.Web.Service
         #endregion
 
         #region 管理员管理
-        ///// <summary>
-        ///// 管理员列表
-        ///// </summary>
-        ///// <param name="_page_info"></param>
-        ///// <param name="key"></param>
-        ///// <returns></returns>
-        //public List<admin> admin_list(PageInfo _page_info, string key = "")
-        //{
-        //    var query = this._context.admin.ToList();
-        //    if (string.IsNullOrEmpty(key))
-        //    {
-        //        query = query.Where(a => a.real_name.Contains(key) || a.phone.Contains(key)).ToList();
-        //    }
-        //    _page_info.count = query.Count();
-        //    query = query.OrderByDescending(a => a.id).Skip(_page_info.page_size * _page_info.page).Take(_page_info.page_size).ToList();
-        //    return query;
-        //}
+        /// <summary>
+        /// 管理员列表
+        /// </summary>
+        /// <param name="_page_info"></param>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public List<admin> admin_list(PageInfo _page_info, string key = "")
+        {
+            using (IDbConnection connection = MySqlConnection())
+            {
+                StringBuilder sql = new StringBuilder();
+                sql.Append("select * from admin where 1=1 ");
+                if (string.IsNullOrEmpty(key))
+                {
+                    sql.Append(" and (real_name like '%" + key + "%' or phone like '%" + key + "%')");
+                }
+                sql.Append("LIMIT " + _page_info.page * _page_info.page_size + "," + _page_info.page_size + " order by id desc");
+                List<admin> _query = connection.Query<admin>(sql.ToString()).ToList();
+                _page_info.count = _query.Count();
+                return _query;
+            }
+        }
 
         ///// <summary>
         ///// 删除管理员
