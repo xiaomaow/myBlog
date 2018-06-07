@@ -1,21 +1,26 @@
-﻿using System;
-using System.Configuration;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Data;
-using MySql.Data;
-using MySql.Data.MySqlClient;
-using System.Data.Entity;
 using MyBlog.Web.Models;
-using MyBlog.Web.common;
 using Dapper;
-using System.Text;
 
 namespace MyBlog.Web.Service
 {
     public class HomeService
     {
-
+        /// <summary>
+        /// 获取系统信息
+        /// </summary>
+        /// <returns></returns>
+        public sys_config getSysConfig()
+        {
+            using (IDbConnection connection = DBHelper.MySqlConnection())
+            {
+                string sql = "select * from sys_config";
+                sys_config _config = connection.Query<sys_config>(sql).FirstOrDefault();
+                return _config;
+            }
+        }
         public List<artice> GetArticeList(PageInfo _info, int typeid = 0)
         {
             using (IDbConnection connection = DBHelper.MySqlConnection())
@@ -40,6 +45,7 @@ namespace MyBlog.Web.Service
                 {
                     string sql_type = "select * from artice_type where id=" + _artice.type_id;
                     artice_type _type = connection.Query<artice_type>(sql_type).FirstOrDefault();
+                    _artice.type = _type;
                 }
                 return _list;
             }

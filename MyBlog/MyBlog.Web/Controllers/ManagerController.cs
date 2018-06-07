@@ -330,5 +330,42 @@ namespace MyBlog.Web.Controllers
             return new JsonNetResult(new ApiResult(200, "", null));
         }
         #endregion
+
+        #region 系统管理
+        /// <summary>
+        /// 系统管理
+        /// </summary>
+        /// <returns></returns>
+        [CheckLogin]
+        public ActionResult SysConfigView()
+        {
+            sys_config _config = _service.getSysConfig();
+            ViewBag.item = _config;
+            return View(_config);
+        }
+
+        [HttpPost]
+        [CheckLogin]
+        public JsonResult SysConfigView(string seo_title, string seo_key, string seo_description)
+        {
+            #region 验证
+            if (string.IsNullOrEmpty(seo_title))
+            {
+                return new JsonNetResult(new ApiResult(400, "seo_title不能为空", null));
+            }
+            if (string.IsNullOrEmpty(seo_key))
+            {
+                return new JsonNetResult(new ApiResult(400, "seo_key不能为空", null));
+            }
+            if (string.IsNullOrEmpty(seo_description))
+            {
+                return new JsonNetResult(new ApiResult(400, "seo_description", null));
+            }
+            #endregion
+
+            _service.UpdateSysConfig(seo_title, seo_description, seo_key);
+            return new JsonNetResult(new ApiResult(200, "操作成功", null));
+        }
+        #endregion
     }
 }

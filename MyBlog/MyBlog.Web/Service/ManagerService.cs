@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Configuration;
 using System.Collections.Generic;
 using System.Linq;
 using System.Data;
-using MySql.Data;
-using MySql.Data.MySqlClient;
-using System.Data.Entity;
 using MyBlog.Web.Models;
 using MyBlog.Web.common;
 using Dapper;
@@ -26,7 +22,7 @@ namespace MyBlog.Web.Service
                 foreach (artice_type _type in query)
                 {
                     string sql_1 = "select count(1) from artice where type_id=@type_id";
-                    _type.artice_count = connection.Query<int>(sql, new { type_id = _type.id }).SingleOrDefault();
+                    _type.artice_count = connection.Query<int>(sql_1, new { type_id = _type.id }).FirstOrDefault();
                 }
                 return query;
             }
@@ -326,6 +322,41 @@ namespace MyBlog.Web.Service
                 _artice.type_id = artice_type;
                 string sql = "update artice set title=@title,content=@content,seo_title=@seo_title,seo_key=@seo_key,seo_description=@seo_description,type_id=@type_id where id=@id";
                 connection.Execute(sql, _artice);
+            }
+        }
+        #endregion
+
+        #region 系统设置
+        /// <summary>
+        /// 获取系统信息
+        /// </summary>
+        /// <returns></returns>
+        public sys_config getSysConfig()
+        {
+            using (IDbConnection connection = DBHelper.MySqlConnection())
+            {
+                string sql = "select * from sys_config";
+                sys_config _config = connection.Query<sys_config>(sql).FirstOrDefault();
+                return _config;
+            }
+        }
+
+        /// <summary>
+        /// 修改系统信息
+        /// </summary>
+        /// <param name="seo_title"></param>
+        /// <param name="seo_description"></param>
+        /// <param name="seo_key"></param>
+        public void UpdateSysConfig(string seo_title, string seo_description, string seo_key)
+        {
+            using (IDbConnection connection = DBHelper.MySqlConnection())
+            {
+                sys_config _config = new sys_config();
+                _config.seo_description = seo_description;
+                _config.seo_key = seo_key;
+                _config.seo_title = seo_title;
+                string sql = "update sys_config set seo_title=@seo_title,seo_description=@seo_description,seo_key=@seo_key where id=1";
+                connection.Execute(sql, _config);
             }
         }
         #endregion

@@ -1,0 +1,85 @@
+﻿@using MyBlog.Web.Models;
+@using MyBlog.Web.Service;
+@{
+    Layout = "~/views/shared/_layout.cshtml";
+    ViewBag.Title = "系统设置";
+    sys_config _config = ViewBag.item;
+    ViewBag.PageName = "sys_config";
+}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        系统设置
+    </div>
+    <div class="panel-body">
+        <form id="sys_config_form" name="sys_config_form" class="form-horizontal" role="form" method="post" action="">
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="real_name">
+                    首页SEO标题：
+                </label>
+                <div class="col-sm-9">
+                    <input type="text" value="@(_config.seo_title)" id="seo_title" placeholder="请输入SEO标题" name="seo_title" class="col-xs-10 col-sm-5" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="phone">
+                    首页SEO关键词：
+                </label>
+                <div class="col-sm-9">
+                    <input type="text" value="@(_config.seo_key)" id="seo_key" placeholder="请输入SEO关键词" name="seo_key" class="col-xs-10 col-sm-5" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="password">
+                    首页SEO描述
+                </label>
+                <div class="col-sm-9">
+                    <textarea class="col-xs-10 col-sm-5" id="seo_description" placeholder="请输入SEO描述">@(_config.seo_description)</textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="head_img">
+                </label>
+                <div class="col-sm-9">
+                    <a class="btn btn-success" href="javascript:;" id="sys_config_btn">保存</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+@section scripts{
+    <script type="text/javascript">
+        $("#sys_config_btn").click(function () {
+            var $seo_title = $("input[name='seo_title']").val();
+            var $seo_description = $("#seo_description").val();
+            var $seo_key = $("input[name='seo_key']").val();
+            var $flag = true;
+
+            if ($flag == true && $seo_title == "") {
+                $flag = false;
+                alert("seo_title不能为空！");
+            }
+            if ($flag == true && $seo_description == "") {
+                $flag = false;
+                alert("seo_description不能为空！");
+
+            }
+            if ($flag == true && $seo_key == "") {
+                $flag = false;
+                alert("seo_key不能为空！");
+            }
+            if ($flag == true) {
+                $.post("sysconfigview", { seo_title: $seo_title, seo_description: $seo_description, seo_key: $seo_key }, function (data) {
+                    if (data.code == 200) {
+                        location.reload();
+                    }
+                    else {
+                        alert(data.message);
+                    }
+                });
+            }
+        });
+    </script>
+}

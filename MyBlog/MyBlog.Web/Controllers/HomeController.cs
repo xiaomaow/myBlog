@@ -13,13 +13,19 @@ namespace MyBlog.Web.Controllers
         HomeService _service = new HomeService();
         public ActionResult Index(int typeid=0,int page=0)
         {
-            //PageInfo _info = new PageInfo();
-            //_info.page = page;
-            //_info.page_size = 20;
-            //List<artice> _artice_list = _service.GetArticeList(_info, typeid);
-            //ViewBag.ArticeList = _artice_list;
-            //List<artice_type> _artice_type_list = _service.GetArticeTypeList();
-            //ViewBag.ArticeTypeLit = _artice_type_list;
+            PageInfo _info = new PageInfo();
+            _info.page = page;
+            _info.page_size = 20;
+            List<artice> _artice_list = _service.GetArticeList(_info, typeid);
+            ViewBag.ArticeList = _artice_list;
+            List<artice_type> _artice_type_list = _service.GetArticeTypeList();
+            ViewBag.ArticeTypeLit = _artice_type_list;
+            sys_config _config = _service.getSysConfig();
+            ViewBag.sys_config = _config;
+            artice_type _artice_type = _service.GetArticeType(typeid);
+            ViewBag.type = _artice_type;
+
+
             return View(ViewBag);
         }
 

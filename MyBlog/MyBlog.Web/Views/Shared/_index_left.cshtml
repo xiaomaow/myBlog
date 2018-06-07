@@ -1,0 +1,19 @@
+﻿@using MyBlog.Web.Models;
+@{
+    Layout = null;
+    List<artice_type> _artice_type_list = ViewBag.ArticeTypeLit;
+}
+
+<div class="sidebar-module">
+    <h4>文章分类</h4>
+    <ol class="list-unstyled">
+        <li><a href="~/home/index?page=0&typeid=0">全部</a></li>
+        @foreach (artice_type _type in _artice_type_list)
+        {
+            <li><a href="~/home/index?page=0&typeid=@(_type.id)">@(_type.type_name)</a></li>
+        }
+    </ol>
+</div>
+<div class="col-sm-11">
+    备案号:鄂ICP备18007882号-1
+</div>
