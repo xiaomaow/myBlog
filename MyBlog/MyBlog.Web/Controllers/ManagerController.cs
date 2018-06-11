@@ -209,6 +209,15 @@ namespace MyBlog.Web.Controllers
         }
         #endregion
 
+        #region 管理员个人设置
+        [CheckLogin]
+        public ActionResult Profile()
+        {
+            admin _admin = ViewBag.Admin;
+            return View();
+        }
+        #endregion
+
         #region 文章管理
         /// <summary>
         /// 文章管理

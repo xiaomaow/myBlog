@@ -72,7 +72,7 @@ namespace MyBlog.Web.Service
                 _type.seo_description = seo_description;
                 _type.seo_key = seo_key;
                 _type.sort = 0;
-                string sql = "insert into article_type (type_name,seo_title,seo_description,seo_key,sort) values (@type_name,@seo_title,@seo_description,@seo_key,@sort)";
+                string sql = "insert into artice_type (type_name,seo_title,seo_description,seo_key,sort) values (@type_name,@seo_title,@seo_description,@seo_key,@sort)";
                 connection.Execute(sql, _type);
             }
         }
@@ -91,7 +91,7 @@ namespace MyBlog.Web.Service
             }
             using (IDbConnection connection = DBHelper.MySqlConnection())
             {
-                string sql = string.Format("delete from article_type where id={0}", id);
+                string sql = string.Format("delete from artice_type where id={0}", id);
                 return connection.Execute(sql);
             }
 
@@ -154,7 +154,7 @@ namespace MyBlog.Web.Service
                 {
                     sql.Append(" and (real_name like '%" + key + "%' or phone like '%" + key + "%')");
                 }
-                sql.Append("LIMIT " + _page_info.page * _page_info.page_size + "," + _page_info.page_size + " order by id desc");
+                sql.Append("order by id desc LIMIT " + _page_info.page * _page_info.page_size + "," + _page_info.page_size + "");
                 List<admin> _query = connection.Query<admin>(sql.ToString()).ToList();
                 return _query;
             }
